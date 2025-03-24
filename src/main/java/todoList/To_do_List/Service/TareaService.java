@@ -26,4 +26,11 @@ public class TareaService {
         }
         return flag;
     }
+
+    public void marcarTareaHecha(String nombre){
+        Tarea tarea = todoList.get(nombre);
+        if(tarea != null){
+            tarea.setAcabada(!tarea.isAcabada());
+        }
+    }
 }
