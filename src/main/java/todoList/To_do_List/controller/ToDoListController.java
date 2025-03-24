@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import todoList.To_do_List.TareaService;
+import todoList.To_do_List.service.TareaService;
 
 @Controller
 @RequestMapping("/to-do-list")
