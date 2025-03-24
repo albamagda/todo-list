@@ -84,17 +84,16 @@
     <p th:if="${message}" th:text="${message}" style="color: green;"></p>
 
     <div class="task-container">
-        <!-- Thymeleaf genera las tarjetas dinámicamente -->
         <div class="task-card" th:each="tarea : ${todolist.values()}">
             <div class="icons">
-                <a th:href="@{/to-do-list/marcar/{nombre}(nombre=${tarea.nombre})}">
-                    <i class="fas fa-check"></i>
+                <a th:href="@{/to-do-list/marcar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
+                    <span title="Marcar como hecha">&#10003;</span>
                 </a>
-                <a th:href="@{/to-do-list/editar/{nombre}(nombre=${tarea.nombre})}">
-                    <i class="fas fa-pencil-alt"></i>
+                <a th:href="@{/to-do-list/editar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
+                    <span title="Editar tarea">&#9998;</span>
                 </a>
-                <a th:href="@{/to-do-list/eliminar/{nombre}(nombre=${tarea.nombre})}">
-                    <i class="fas fa-times"></i>
+                <a th:href="@{/to-do-list/eliminar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
+                    <span title="Eliminar tarea">&#10060;</span>
                 </a>
             </div>
             <div>
