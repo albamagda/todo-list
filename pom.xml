@@ -8,11 +8,11 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>todoList</groupId>
-	<artifactId>To-do-List</artifactId>
+	<groupId>com.todolist</groupId>
+	<artifactId>todolist</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>To-do-List</name>
-	<description>Ejercicio To-Do formación java</description>
+	<name>todolist</name>
+	<description>To Do List Project</description>
 	<url/>
 	<licenses>
 		<license/>

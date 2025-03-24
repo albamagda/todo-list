@@ -1,4 +1,4 @@
-package todoList.To_do_List;
+package todoList.To_do_List.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class TareaService {
         Tarea tarea = todoList.get(nombre);
         boolean flag = false;
         if(tarea != null ){
-            agenda.remove(nombre);
+            todoList.remove(nombre);
             flag = true;
         }
         return flag;
