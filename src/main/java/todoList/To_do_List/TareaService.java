@@ -21,7 +21,7 @@ public class TareaService {
         Tarea tarea = todoList.get(nombre);
         boolean flag = false;
         if(tarea != null ){
-            agenda.remove(nombre);
+            todoList.remove(nombre);
             flag = true;
         }
         return flag;
