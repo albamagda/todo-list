@@ -89,7 +89,7 @@
     <div class="task-container">
         <div class="task-card" th:each="tarea : ${todolist.values()}">
             <div class="icons">
-                <a th:href="@{/to-do-list/marcar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
+                <a th:href="@{/to-do-list/actualizar-completada/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
                     <span title="Marcar como hecha">&#10003;</span>
                 </a>
                 <a th:href="@{/to-do-list/editar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>

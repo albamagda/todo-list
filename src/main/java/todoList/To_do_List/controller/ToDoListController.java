@@ -42,7 +42,7 @@ public class ToDoListController {
         return "redirect:/to-do-list";
     }
 
-     @GetMapping("/eliminar/{nombre}")
+    @GetMapping("/eliminar/{nombre}")
     public String mostrarConfirmacion(@PathVariable("nombre") String nombre, Model model) {
         Tarea tarea = tareaService.obtenerTareaPorNombre(nombre); // Método para obtener la tarea
         model.addAttribute("tarea", tarea);
@@ -57,6 +57,13 @@ public class ToDoListController {
         }else{
             redirectAttributes.addFlashAttribute("message", "No se pudo eliminar la tarea");
         }
+        return "redirect:/to-do-list";
+    }
+
+    @GetMapping("/actualizar-completada/{nombre}")
+    public String actualizarCompletadaTarea(@PathVariable("nombre") String nombre, RedirectAttributes redirectAttributes){
+        tareaService.changeTareaHecha(nombre);
+        redirectAttributes.addFlashAttribute("message", "Estado de tarea actualizado");
         return "redirect:/to-do-list";
     }
 }

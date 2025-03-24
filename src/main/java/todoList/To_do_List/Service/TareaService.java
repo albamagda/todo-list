@@ -42,10 +42,8 @@ public class TareaService {
         return flag;
     }
 
-    public void marcarTareaHecha(String nombre){
+    public void changeTareaHecha(String nombre){
         Tarea tarea = todoList.get(nombre);
-        if(tarea != null){
-            tarea.setAcabada(!tarea.isAcabada());
-        }
+        tarea.setAcabada(!tarea.isAcabada());
     }
 }
