@@ -24,7 +24,7 @@ public class TareaService {
         return todoList;
     }
 
-    public Map<String, Tarea> obtenerTareaPorNombre(String nombre){
+    public Tarea obtenerTareaPorNombre(String nombre){
         return todoList.get(nombre);
     }
 
