@@ -21,10 +21,21 @@ public class TareaService {
         Tarea tarea = todoList.get(nombre);
         boolean flag = false;
         if(tarea != null ){
-            agenda.remove(nombre);
+            todoList.remove(nombre);
             flag = true;
         }
         return flag;
+    }
+
+    public void actualizarTarea(String nombreOriginal, Tarea tareaActualizada){
+        if(!nombreOriginal.equals(tareaActualizada.getNombre())){
+            todoList.remove(nombreOriginal);
+        }
+        todoList.put(tareaActualizada.getNombre(), tareaActualizada);
+    }
+
+    public Tarea obtenerTareaPorNombre(String nombre){
+        return todoList.get(nombre);
     }
 
     public void marcarTareaHecha(String nombre){
