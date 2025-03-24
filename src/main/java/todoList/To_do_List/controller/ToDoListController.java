@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import todoList.To_do_List.model.Tarea;
 import todoList.To_do_List.service.TareaService;
@@ -26,8 +28,16 @@ public class ToDoListController {
     }
 
     @GetMapping("/crear")
-    public String crearTarea(Model model){
+    public String crearTareaForm(Model model){
         model.addAttribute("tarea", new Tarea());
         return "addNote";
+    }
+
+    //Endpoint POST de crear tarea
+    @PostMapping("/crear")
+    public String crearTarea(@ModelAttribute Tarea tarea, RedirectAttributes redirectAttributes){
+        tareaService.aniadirTarea(tarea);
+        redirectAttributes.addFlashAttribute("guardar", "Tarea añadida con exito");
+        return "redirect:/to-do-list";
     }
 }
