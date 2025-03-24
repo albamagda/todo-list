@@ -1,16 +1,174 @@
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tareas</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .task-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .task-card {
+            background: white;
+            border: 2px solid #007bff;
+            padding: 15px;
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-card .icons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .task-card .icons i {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .fa-check {
+            color: green;
+        }
+
+        .fa-pencil-alt {
+            color: brown;
+        }
+
+        .fa-times {
+            color: red;
+        }
+
+        .task-content h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .task-content p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .comments {
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Lista de tareas</h1>
-    <div id="task-list"></div>
-    <a href="edit.html">Añadir/Editar Tarea</a>
+    <div class="task-container">
+        <div class="task-card">
+            <div class="icons">
+                <i class="fas fa-check"></i>
+                <i class="fas fa-pencil-alt"></i>
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="task-content">
+                <h3>Nombre de la tarea</h3>
+                <p>Contenido de la tarea</p>
+            </div>
+            <div class="comments">Comentarios Extras</div>
+        </div>
+
+        <div class="task-card">
+            <div class="icons">
+                <i class="fas fa-check"></i>
+                <i class="fas fa-pencil-alt"></i>
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="task-content">
+                <h3>Nombre de la tarea</h3>
+                <p>Contenido de la tarea</p>
+            </div>
+            <div class="comments">Comentarios Extras</div>
+        </div>
+
+        <div class="task-card">
+            <div class="icons">
+                <i class="fas fa-check"></i>
+                <i class="fas fa-pencil-alt"></i>
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="task-content">
+                <h3>Nombre de la tarea</h3>
+                <p>Contenido de la tarea</p>
+            </div>
+            <div class="comments">Comentarios Extras</div>
+        </div>
+    </div>
+
+    <script>
+        function showToast(message) {
+            let toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+            setTimeout(function () {
+                toast.classList.remove("show");
+            }, 1500);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const taskForm = document.getElementById("task-form");
+            const taskContainer = document.getElementById("task-container");
+
+            taskForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const taskName = document.getElementById("task-name").value;
+                const taskContent = document.getElementById("task-content").value;
+
+                if (taskName.trim() === "" || taskContent.trim() === "") {
+                    alert("Por favor, completa todos los campos.");
+                    return;
+                }
+
+                const taskCard = document.createElement("div");
+                taskCard.classList.add("task-card");
+                taskCard.innerHTML = `
+                    <div class="icons">
+                        <i class="fas fa-check"></i>
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="task-content">
+                        <h3>${taskName}</h3>
+                        <p>${taskContent}</p>
+                    </div>
+                    <div class="comments">Comentarios Extras</div>
+                `;
+
+                taskContainer.appendChild(taskCard);
+
+                // Mostrar mensaje de confirmación
+                showToast("Tarea añadida con éxito!");
+
+                // Limpiar formulario
+                taskForm.reset();
+            });
+        });
+    </script>
 </body>
 
 </html>
