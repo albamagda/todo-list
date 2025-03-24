@@ -1,47 +1,109 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tareas</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
         }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
+
+        h1 {
+            color: #333;
         }
-        th {
-            background-color: #f2f2f2;
+
+        .task-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px;
         }
-        .icon-button {
-            background: none;
-            border: none;
+
+        .task-card {
+            background: white;
+            border: 2px solid #007bff;
+            padding: 15px;
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-card .icons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .task-card .icons i {
             cursor: pointer;
+            font-size: 18px;
+        }
+
+        .fa-check {
+            color: green;
+        }
+
+        .fa-pencil-alt {
+            color: brown;
+        }
+
+        .fa-times {
+            color: red;
+        }
+
+        .task-content h3 {
             font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .task-content p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .comments {
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
         }
     </style>
 </head>
+
 <body>
-    <h2>Lista de Tareas</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Contenido</th>
-                <th>Comentarios</th>
-                <th>Acabada</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="tareas-body">
-            <!-- Aquí se insertarán las tareas dinámicamente -->
-        </tbody>
-    </table>
-    <br>
-    <button id="añadir-tarea">Añadir Tarea</button>
+    <h1>Lista de tareas</h1>
+
+    <!-- Mensaje de éxito o error -->
+    <p th:if="${message}" th:text="${message}" style="color: green;"></p>
+
+    <div class="task-container">
+        <!-- Thymeleaf genera las tarjetas dinámicamente -->
+        <div class="task-card" th:each="tarea : ${todolist.values()}">
+            <div class="icons">
+                <a th:href="@{/to-do-list/marcar/{nombre}(nombre=${tarea.nombre})}">
+                    <i class="fas fa-check"></i>
+                </a>
+                <a th:href="@{/to-do-list/editar/{nombre}(nombre=${tarea.nombre})}">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <a th:href="@{/to-do-list/eliminar/{nombre}(nombre=${tarea.nombre})}">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+            <div>
+                <h3 th:text="${tarea.nombre}">Nombre de la tarea</h3>
+                <p th:text="${tarea.contenido}">Contenido de la tarea</p>
+            </div>            
+            <div class="comments" th:text="${tarea.acabada ? '✔ Completada' : 'Pendiente'}"></div>
+        </div>
+    </div>
 </body>
+
 </html>
