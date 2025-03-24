@@ -5,7 +5,7 @@ public class Tarea{
     private String contenido;
     private String comentarios;
     private boolean acabada;
-}
+
 
 public Tarea(String nombre, String contenido, String comentarios, boolean acabada){
     this.nombre = nombre;
@@ -43,4 +43,5 @@ public void setComentarios(String comentarios) {
 }
 public void setAcabada(boolean acabada) {
     this.acabada = acabada;
+}
 }

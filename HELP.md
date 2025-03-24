@@ -1,8 +1,3 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* The original package name 'todoList.To-do-List' is invalid and this project uses 'todoList.To_do_List' instead.
-
 # Getting Started
 
 ### Reference Documentation

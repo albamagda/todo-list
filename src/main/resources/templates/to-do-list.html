@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tareas</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,97 +79,30 @@
 
 <body>
     <h1>Lista de tareas</h1>
+
+    <!-- Mensaje de éxito o error -->
+    <p th:if="${message}" th:text="${message}" style="color: green;"></p>
+
     <div class="task-container">
-        <div class="task-card">
+        <div class="task-card" th:each="tarea : ${todolist.values()}">
             <div class="icons">
-                <i class="fas fa-check"></i>
-                <i class="fas fa-pencil-alt"></i>
-                <i class="fas fa-times"></i>
+                <a th:href="@{/to-do-list/marcar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
+                    <span title="Marcar como hecha">&#10003;</span>
+                </a>
+                <a th:href="@{/to-do-list/editar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
+                    <span title="Editar tarea">&#9998;</span>
+                </a>
+                <a th:href="@{/to-do-list/eliminar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
+                    <span title="Eliminar tarea">&#10060;</span>
+                </a>
             </div>
-            <div class="task-content">
-                <h3>Nombre de la tarea</h3>
-                <p>Contenido de la tarea</p>
-            </div>
-            <div class="comments">Comentarios Extras</div>
-        </div>
-
-        <div class="task-card">
-            <div class="icons">
-                <i class="fas fa-check"></i>
-                <i class="fas fa-pencil-alt"></i>
-                <i class="fas fa-times"></i>
-            </div>
-            <div class="task-content">
-                <h3>Nombre de la tarea</h3>
-                <p>Contenido de la tarea</p>
-            </div>
-            <div class="comments">Comentarios Extras</div>
-        </div>
-
-        <div class="task-card">
-            <div class="icons">
-                <i class="fas fa-check"></i>
-                <i class="fas fa-pencil-alt"></i>
-                <i class="fas fa-times"></i>
-            </div>
-            <div class="task-content">
-                <h3>Nombre de la tarea</h3>
-                <p>Contenido de la tarea</p>
-            </div>
-            <div class="comments">Comentarios Extras</div>
+            <div>
+                <h3 th:text="${tarea.nombre}">Nombre de la tarea</h3>
+                <p th:text="${tarea.contenido}">Contenido de la tarea</p>
+            </div>            
+            <div class="comments" th:text="${tarea.acabada ? '✔ Completada' : 'Pendiente'}"></div>
         </div>
     </div>
-
-    <script>
-        function showToast(message) {
-            let toast = document.getElementById("toast");
-            toast.textContent = message;
-            toast.classList.add("show");
-            setTimeout(function () {
-                toast.classList.remove("show");
-            }, 1500);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const taskForm = document.getElementById("task-form");
-            const taskContainer = document.getElementById("task-container");
-
-            taskForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-
-                const taskName = document.getElementById("task-name").value;
-                const taskContent = document.getElementById("task-content").value;
-
-                if (taskName.trim() === "" || taskContent.trim() === "") {
-                    alert("Por favor, completa todos los campos.");
-                    return;
-                }
-
-                const taskCard = document.createElement("div");
-                taskCard.classList.add("task-card");
-                taskCard.innerHTML = `
-                    <div class="icons">
-                        <i class="fas fa-check"></i>
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-times"></i>
-                    </div>
-                    <div class="task-content">
-                        <h3>${taskName}</h3>
-                        <p>${taskContent}</p>
-                    </div>
-                    <div class="comments">Comentarios Extras</div>
-                `;
-
-                taskContainer.appendChild(taskCard);
-
-                // Mostrar mensaje de confirmación
-                showToast("Tarea añadida con éxito!");
-
-                // Limpiar formulario
-                taskForm.reset();
-            });
-        });
-    </script>
 </body>
 
 </html>
