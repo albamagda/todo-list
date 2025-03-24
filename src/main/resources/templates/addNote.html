@@ -1,21 +1,40 @@
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Tarea</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Crear Tarea</title>
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" th:href="@{/css/crear-tarea.css}">
 </head>
 
 <body>
-    <h1>Editar/Añadir Tarea</h1>
-    <form id="task-form">
-        <input type="text" id="task-name" placeholder="Nombre de la tarea">
-        <textarea id="task-content" placeholder="Contenido de la tarea"></textarea>
-        <button type="submit"><i class="fas fa-check"></i> Guardar</button>
-    </form>
-    <a href="index.html">Volver</a>
+    <div class="form-container">
+        <h1>Crear Nueva Tarea</h1>
+        <form th:action="@{/to-do-list/crear-tarea}" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" th:value="${tarea.nombre}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contenido">Contenido</label>
+                <textarea id="contenido" name="contenido" rows="4" th:value="${tarea.contenido}" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="comentarios">Comentarios</label>
+                <textarea id="comentarios" name="comentarios" rows="4" th:value="${tarea.comentarios}" required></textarea>
+            </div>
+
+            <button type="submit">Crear Tarea</button>
+        </form>
+
+        <div class="message">
+            <a href="/to-do-list">Volver a la lista de tareas</a>
+        </div>
+    </div>
 </body>
 
 </html>

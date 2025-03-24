@@ -82,6 +82,9 @@
 
     <!-- Mensaje de éxito o error -->
     <p th:if="${message}" th:text="${message}" style="color: green;"></p>
+    <a th:href="@{/to-do-list/crear}">
+        <button type="button">Crear tarea</button>
+    </a>
 
     <div class="task-container">
         <div class="task-card" th:each="tarea : ${todolist.values()}">

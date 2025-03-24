@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import todoList.To_do_List.model.Tarea;
 import todoList.To_do_List.service.TareaService;
 
 @Controller
@@ -22,5 +23,11 @@ public class ToDoListController {
         model.addAttribute("todolist", tareaService.obtenerTarea());
         model.addAttribute("message", mensaje);
         return "to-do-list";
+    }
+
+    @GetMapping("/crear")
+    public String crearTarea(Model model){
+        model.addAttribute("tarea", new Tarea());
+        return "addNote";
     }
 }
