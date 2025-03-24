@@ -1,17 +1,68 @@
-<html lang="es">
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Tarea</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-delete {
+            background-color: red;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: gray;
+            color: white;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Eliminar Tarea</h1>
-    <div id="delete-task-list"></div>
-    <a href="index.html">Volver</a>
+    <div class="container">
+        <h1>¿Estás seguro de que deseas eliminar esta tarea?</h1>
+        <p><strong th:text="${tarea.nombre}"></strong></p>
+        <p th:text="${tarea.contenido}"></p>
+
+        <div class="buttons">
+            <a th:href="@{/to-do-list/eliminar-confirmado/{nombre}(nombre=${tarea.nombre})}"
+                class="btn btn-delete">Eliminar</a>
+            <a th:href="@{/to-do-list}" class="btn btn-cancel">Cancelar</a>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -23,4 +23,22 @@ public class ToDoListController {
         model.addAttribute("message", mensaje);
         return "to-do-list";
     }
+
+    @GetMapping("/eliminar/{nombre}")
+    public String mostrarConfirmacion(@PathVariable("nombre") String nombre, Model model) {
+        Tarea tarea = tareaService.obtenerTareaPorNombre(nombre); // Método para obtener la tarea
+        model.addAttribute("tarea", tarea);
+        return "deleteNote"; // Nombre del HTML de eliminación
+    }
+
+    @GetMapping("/eliminar-confirmado/{nombre}")
+    public String eliminarTarea(@PathVariable("nombre") String nombre, RedirectAttributes redirectAttributes) {
+        boolean eliminado =tareaService.eliminarTarea(nombre); // Método para eliminar la tarea
+        if(eliminado){
+            redirectAttributes.addAttribute("message", "Tarea eliminadA con éxito");
+        }else{
+            redirectAttributes.addFlashAttribute("message", "No se pudo eliminar la tarea");
+        }
+        return "redirect:/to-do-list";
+    }
 }

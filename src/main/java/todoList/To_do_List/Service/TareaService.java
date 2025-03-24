@@ -24,6 +24,10 @@ public class TareaService {
         return todoList;
     }
 
+    public Map<String, Tarea> obtenerTareaPorNombre(String nombre){
+        return todoList.get(nombre);
+    }
+
     public void aniadirTarea (Tarea tarea){
         todoList.put(tarea.getNombre(), tarea);
     }
