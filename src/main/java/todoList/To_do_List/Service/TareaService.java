@@ -46,4 +46,11 @@ public class TareaService {
         Tarea tarea = todoList.get(nombre);
         tarea.setAcabada(!tarea.isAcabada());
     }
+
+    public void actualizarContacto(String nombreOriginal, Tarea tareaActualizada){
+        if(!nombreOriginal.equals(tareaActualizada.getNombre())){
+            todoList.remove(nombreOriginal);
+        }
+        todoList.put(tareaActualizada.getNombre(), tareaActualizada);
+    }
 }

@@ -17,6 +17,24 @@
             color: #333;
         }
 
+        .completada {
+            color: green;
+            font-weight: bold;
+        }
+
+        .pendiente {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .borde-verde {
+            border-color: green !important;
+        }
+
+        .borde-amarillo {
+            border-color: orange !important;
+        }
+
         .task-container {
             display: flex;
             justify-content: center;
@@ -87,23 +105,26 @@
     </a>
 
     <div class="task-container">
-        <div class="task-card" th:each="tarea : ${todolist.values()}">
+        <div class="task-card" th:each="tarea : ${todolist.values()}" th:classappend="${tarea.acabada} ? 'borde-verde' : 'borde-amarillo'">
             <div class="icons">
-                <a th:href="@{/to-do-list/actualizar-completada/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
-                    <span title="Marcar como hecha">&#10003;</span>
-                </a>
+                <a th:href="@{/to-do-list/actualizar-completada/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none;">
+                    <span th:text="${tarea.acabada} ? '&#10008;' : '&#10003;'" th:title="${tarea.acabada} ? 'Marcar como pendiente' : 'Marcar como hecha'"></span>
+                </a>                
                 <a th:href="@{/to-do-list/editar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
-                    <span title="Editar tarea">&#9998;</span>
+                    <span title="Editar tarea" style="text-decoration: none; color: green;">&#9998;</span>
                 </a>
                 <a th:href="@{/to-do-list/eliminar/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none";>
-                    <span title="Eliminar tarea">&#10060;</span>
+                    <span title="Eliminar tarea" style="text-decoration: none; color: red;">&#128465;</span>
                 </a>
             </div>
             <div>
                 <h3 th:text="${tarea.nombre}">Nombre de la tarea</h3>
                 <p th:text="${tarea.contenido}">Contenido de la tarea</p>
             </div>            
-            <div class="comments" th:text="${tarea.acabada ? '✔ Completada' : 'Pendiente'}"></div>
+            <div class="comments"
+                th:text="${tarea.acabada ? '✔ Completada' : '⏳ Pendiente'}"
+                th:classappend="${tarea.acabada ? 'completada' : 'pendiente'}">
+            </div>
         </div>
     </div>
 </body>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import todoList.To_do_List.model.Tarea;
@@ -42,6 +43,21 @@ public class ToDoListController {
         return "redirect:/to-do-list";
     }
 
+    @GetMapping("editar/{nombre}")
+    public String editarTarea(@PathVariable("nombre") String nombre, Model model){
+        Tarea tarea = tareaService.obtenerTareaPorNombre(nombre);
+        model.addAttribute("tarea", tarea);
+        return "editNote";
+    }
+
+    @PostMapping("/actualizar/{nombre}")
+    public String actualizarTarea(@PathVariable("nombre") String nombreOriginal, Tarea tareaActualizada, RedirectAttributes redirectAttributes){
+        tareaService.actualizarContacto(nombreOriginal, tareaActualizada);
+        redirectAttributes.addFlashAttribute("message", "Contacto actualizado");
+        return "redirect:/to-do-list";
+    }
+
+
     @GetMapping("/eliminar/{nombre}")
     public String mostrarConfirmacion(@PathVariable("nombre") String nombre, Model model) {
         Tarea tarea = tareaService.obtenerTareaPorNombre(nombre); // Método para obtener la tarea
@@ -65,5 +81,11 @@ public class ToDoListController {
         tareaService.changeTareaHecha(nombre);
         redirectAttributes.addFlashAttribute("message", "Estado de tarea actualizado");
         return "redirect:/to-do-list";
+    }
+
+    @GetMapping("/check/{nombre}")
+    @ResponseBody
+    public boolean checkTarea(@PathVariable String nombre){
+        return tareaService.obtenerTarea().containsKey(nombre);
     }
 }

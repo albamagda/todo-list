@@ -12,7 +12,7 @@
 <body>
     <div class="form-container">
         <h1>Crear Nueva Tarea</h1>
-        <form th:action="@{/to-do-list/crear}" method="POST">
+        <form th:action="@{/to-do-list/crear}" method="POST" onsubmit="return validarTarea(event)">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" th:value="${tarea.nombre}" required>
@@ -35,6 +35,32 @@
             <a href="/to-do-list">Volver a la lista de tareas</a>
         </div>
     </div>
-</body>
 
+    <script>
+        //Comprobar si el nombre de la tarea ya existe, y pedir confirmacion al usuario para reemplazarlo
+        async function validarTarea(event) {
+            event.preventDefault(); //esperar a validacion para enviar el formulario
+        
+            let nombreTarea = document.getElementById("nombre").value;
+            
+            if (!nombreTarea) {
+                alert("El nombre de la tarea no puede estar vacío.");
+                return false;
+            }
+        
+            //consultar tarea ya existente
+            let response = await fetch(`/to-do-list/check/${nombreTarea}`);
+            let existe = await response.json();
+        
+            if (existe) {
+                let confirmar = confirm("Ya existe una tarea con este nombre. ¿Deseas reemplazarla?");
+                if (!confirmar) {
+                    return false; 
+                }
+            }
+        
+            event.target.submit();
+        }
+        </script>
+</body>
 </html>
