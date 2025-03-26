@@ -19,7 +19,7 @@ public class TareaService {
         return tareaRepositorio.findAll();
     }
     
-    @Override
+
     public Optional<Tarea> findByNombre(String nombre) {
         return tareaRepositorio.findByNombre(nombre);
     }
@@ -47,7 +47,7 @@ public class TareaService {
         }
 
         tarea.setNombre(tareaActualizada.getNombre());
-        tarea.setDescripcion(tareaActualizada.getDescripcion());
+        tarea.setContenido(tareaActualizada.getContenido());
         tarea.setComentarios(tareaActualizada.getComentarios());
         tarea.setAcabada(tareaActualizada.isAcabada());
 

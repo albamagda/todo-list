@@ -12,4 +12,6 @@ public interface TareaRepository extends JpaRepository<Tarea,Long>{
     Optional<Tarea> findByNombre(String nombre);
     
     boolean existsByNombre(String nombre);
+
+    void deleteByNombre(String nombre);
 }
