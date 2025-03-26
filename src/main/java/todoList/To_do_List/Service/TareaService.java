@@ -1,4 +1,6 @@
-package todoList.To_do_List.service;
+package todoList.To_do_List.Service;
+
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class TareaService {
         return tareaRepositorio.findAll();
     }
     
-    @Override
+    
     public Optional<Tarea> findByNombre(String nombre) {
         return tareaRepositorio.findByNombre(nombre);
     }
@@ -31,11 +33,11 @@ public class TareaService {
         return tareaRepositorio.save(tarea);
     }
 
-    public void eliminarTarea(String nombre) {
-        if (!tareaRepositorio.existsByNombre(nombre)) {
+    public void eliminarTarea(Long id) {
+        if (!tareaRepositorio.existsById(id)) {
             throw new RuntimeException("La tarea no existe");
         }
-        tareaRepositorio.deleteByNombre(nombre);
+        tareaRepositorio.deleteById(id);
     }
 
     public Tarea actualizarTarea(String nombreOriginal, Tarea tareaActualizada) {
@@ -47,7 +49,7 @@ public class TareaService {
         }
 
         tarea.setNombre(tareaActualizada.getNombre());
-        tarea.setDescripcion(tareaActualizada.getDescripcion());
+        tarea.setContenido(tareaActualizada.getContenido());
         tarea.setComentarios(tareaActualizada.getComentarios());
         tarea.setAcabada(tareaActualizada.isAcabada());
 
