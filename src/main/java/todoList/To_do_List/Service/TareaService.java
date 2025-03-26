@@ -1,58 +1,63 @@
 package todoList.To_do_List.Service;
 
-
-
-import java.util.HashMap;
-import java.util.Map;
-import todoList.To_do_List.model.Tarea;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import todoList.To_do_List.model.Tarea;
+import todoList.To_do_List.repositorios.TareaRepositorio;
 
-import jakarta.annotation.PostConstruct;
+import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class TareaService {
-    private Map<String, Tarea> todoList = new HashMap<>();
+    private final TareaRepositorio tareaRepositorio;
 
-    //Prueba para crear tarea y verla en el html
-    @PostConstruct
-    public void init(){
-        Tarea tarea = new Tarea("Prueba", "Prueba", "comentarios", false);
-        Tarea tarea2 = new Tarea("Prueba2", "Pruebaasd", "comentarasdios", false);
-        todoList.put(tarea.getNombre(), tarea);
-        todoList.put(tarea2.getNombre(), tarea2);
+    public List<Tarea> obtenerTodasLasTareas() {
+        return tareaRepositorio.findAll();
     }
 
-    public Map<String, Tarea> obtenerTarea(){
-        return todoList;
+    public Optional<Tarea> obtenerTareaPorNombre(String nombre) {
+        return tareaRepositorio.findByNombre(nombre);
     }
 
-    public Tarea obtenerTareaPorNombre(String nombre){
-        return todoList.get(nombre);
-    }
-
-    public void aniadirTarea (Tarea tarea){
-        todoList.put(tarea.getNombre(), tarea);
-    }
-
-    public boolean eliminarTarea (String nombre){
-        Tarea tarea = todoList.get(nombre);
-        boolean flag = false;
-        if(tarea != null ){
-            todoList.remove(nombre);
-            flag = true;
+    public Tarea guardarTarea(Tarea tarea) {
+        if (tareaRepositorio.existsByNombre(tarea.getNombre())) {
+            throw new RuntimeException("La tarea con este nombre ya existe");
         }
-        return flag;
+        return tareaRepositorio.save(tarea);
     }
 
-    public void changeTareaHecha(String nombre){
-        Tarea tarea = todoList.get(nombre);
+    public void eliminarTarea(String nombre) {
+        if (!tareaRepositorio.existsByNombre(nombre)) {
+            throw new RuntimeException("La tarea no existe");
+        }
+        tareaRepositorio.deleteByNombre(nombre);
+    }
+
+    public Tarea actualizarTarea(String nombreOriginal, Tarea tareaActualizada) {
+        Tarea tarea = tareaRepositorio.findByNombre(nombreOriginal)
+                .orElseThrow(() -> new RuntimeException("Tarea no encontrada"));
+
+        if (!nombreOriginal.equals(tareaActualizada.getNombre()) && tareaRepositorio.existsByNombre(tareaActualizada.getNombre())) {
+            throw new RuntimeException("El nuevo nombre ya está en uso");
+        }
+
+        tarea.setNombre(tareaActualizada.getNombre());
+        tarea.setDescripcion(tareaActualizada.getDescripcion());
+        tarea.setComentarios(tareaActualizada.getComentarios());
+        tarea.setAcabada(tareaActualizada.isAcabada());
+
+        return tareaRepositorio.save(tarea);
+    }
+
+    public Tarea cambiarEstadoTarea(String nombre) {
+        Tarea tarea = tareaRepositorio.findByNombre(nombre)
+                .orElseThrow(() -> new RuntimeException("Tarea no encontrada"));
+        
         tarea.setAcabada(!tarea.isAcabada());
-    }
-
-    public void actualizarContacto(String nombreOriginal, Tarea tareaActualizada){
-        if(!nombreOriginal.equals(tareaActualizada.getNombre())){
-            todoList.remove(nombreOriginal);
-        }
-        todoList.put(tareaActualizada.getNombre(), tareaActualizada);
+        return tareaRepositorio.save(tarea);
     }
 }
