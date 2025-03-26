@@ -1,7 +1,5 @@
 package todoList.To_do_List.service;
 
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,10 +32,10 @@ public class TareaService {
     }
 
     public void eliminarTarea(String nombre) {
-        if (!tareaRepositorio.existsById(nombre)) {
+        if (!tareaRepositorio.existsByNombre(nombre)) {
             throw new RuntimeException("La tarea no existe");
         }
-        tareaRepositorio.deleteById(nombre);
+        tareaRepositorio.deleteByNombre(nombre);
     }
 
     public Tarea actualizarTarea(String nombreOriginal, Tarea tareaActualizada) {
