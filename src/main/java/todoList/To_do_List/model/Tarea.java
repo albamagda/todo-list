@@ -1,47 +1,36 @@
 package todoList.To_do_List.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "usuarios")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tarea{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String contenido;
+
+
+    @Column(nullable = false)
     private String comentarios;
+
+    @Column(nullable = false)
     private boolean acabada;
-
-
-public Tarea(String nombre, String contenido, String comentarios, boolean acabada){
-    this.nombre = nombre;
-    this.contenido = contenido;
-    this.comentarios = comentarios;
-    this.acabada = acabada;
-}
-
-public Tarea(){}
-
-public String getNombre() {
-    return nombre;
-}
-public void setNombre(String nombre) {
-    this.nombre = nombre;
-}
-
-public String getContenido() {
-    return contenido;
-}
-
-public Boolean isAcabada() {
-    return acabada;
-}
-
-public void setContenido(String contenido) {
-    this.contenido = contenido;
-}
-
-public String getComentarios() {
-    return comentarios;
-}
-public void setComentarios(String comentarios) {
-    this.comentarios = comentarios;
-}
-public void setAcabada(boolean acabada) {
-    this.acabada = acabada;
-}
 }
