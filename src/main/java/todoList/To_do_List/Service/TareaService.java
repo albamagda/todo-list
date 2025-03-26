@@ -18,8 +18,9 @@ public class TareaService {
     public List<Tarea> obtenerTodasLasTareas() {
         return tareaRepositorio.findAll();
     }
-
-    public Optional<Tarea> obtenerTareaPorNombre(String nombre) {
+    
+    @Override
+    public Optional<Tarea> findByrNombre(String nombre) {
         return tareaRepositorio.findByNombre(nombre);
     }
 
