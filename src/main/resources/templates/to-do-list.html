@@ -105,7 +105,7 @@
     </a>
 
     <div class="task-container">
-        <div class="task-card" th:each="tarea : ${todolist.values()}" th:classappend="${tarea.acabada} ? 'borde-verde' : 'borde-amarillo'">
+        <div class="task-card" th:each="tarea : ${todolist}" th:classappend="${tarea.acabada} ? 'borde-verde' : 'borde-amarillo'">
             <div class="icons">
                 <a th:href="@{/to-do-list/actualizar-completada/{nombre}(nombre=${tarea.nombre})}" style="text-decoration: none;">
                     <span th:text="${tarea.acabada} ? '&#10008;' : '&#10003;'" th:title="${tarea.acabada} ? 'Marcar como pendiente' : 'Marcar como hecha'"></span>
