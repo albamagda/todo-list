@@ -1,6 +1,6 @@
 package todoList.To_do_List.controller;
 
-import todoList.To_do_List.Service.UsuarioService;
+import todoList.To_do_List.service.UsuarioService;
 import todoList.To_do_List.model.Usuario;
 
 

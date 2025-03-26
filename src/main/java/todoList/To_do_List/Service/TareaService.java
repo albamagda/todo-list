@@ -1,4 +1,4 @@
-package todoList.To_do_List.Service;
+package todoList.To_do_List.service;
 
 
 
@@ -33,11 +33,11 @@ public class TareaService {
         return tareaRepositorio.save(tarea);
     }
 
-    public void eliminarTarea(Long id) {
-        if (!tareaRepositorio.existsById(id)) {
+    public void eliminarTarea(String nombre) {
+        if (!tareaRepositorio.existsById(nombre)) {
             throw new RuntimeException("La tarea no existe");
         }
-        tareaRepositorio.deleteById(id);
+        tareaRepositorio.deleteById(nombre);
     }
 
     public Tarea actualizarTarea(String nombreOriginal, Tarea tareaActualizada) {
