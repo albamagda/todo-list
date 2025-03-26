@@ -1,7 +1,7 @@
 package todoList.To_do_List.controller;
 
-import com.registrosusuarios.modelos.Usuario;
-import com.registrosusuarios.servicios.UsuarioServicio;
+import todoList.To_do_List.model.Usuario;
+import todoList.To_do_List.service.UsuarioService;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class UsuarioControlador {
-    private final UsuarioServicio usuarioServicio;
+    private final UsuarioService usuarioServicio;
 
     @GetMapping("/")
     public String inicio(){

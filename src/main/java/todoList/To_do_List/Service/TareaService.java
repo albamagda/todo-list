@@ -1,10 +1,10 @@
-package todoList.To_do_List.Service;
+package todoList.To_do_List.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todoList.To_do_List.model.Tarea;
-import todoList.To_do_List.repositorios.TareaRepositorio;
+import todoList.To_do_List.repository.TareaRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,14 +13,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class TareaService {
-    private final TareaRepositorio tareaRepositorio;
+    private final TareaRepository tareaRepositorio;
 
     public List<Tarea> obtenerTodasLasTareas() {
         return tareaRepositorio.findAll();
     }
     
     @Override
-    public Optional<Tarea> findByrNombre(String nombre) {
+    public Optional<Tarea> findByNombre(String nombre) {
         return tareaRepositorio.findByNombre(nombre);
     }
 

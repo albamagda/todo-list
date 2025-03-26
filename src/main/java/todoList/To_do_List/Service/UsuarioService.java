@@ -1,4 +1,4 @@
-package todoList.To_do_List.Service;
+package todoList.To_do_List.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.registrosusuarios.modelos.Rol;
-import com.registrosusuarios.modelos.Usuario;
-import com.registrosusuarios.repositorios.RolRepositorio;
-import com.registrosusuarios.repositorios.UsuarioRepositorio;
+import todoList.To_do_List.model.Rol;
+import todoList.To_do_List.model.Usuario;
+import todoList.To_do_List.repository.RolRepositorio;
+import todoList.To_do_List.repository.UsuarioRepositorio;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UsuarioServicio implements UserDetailsService {
+public class UsuarioService implements UserDetailsService {
     private final UsuarioRepositorio usuarioRepositorio;
 
     private final RolRepositorio rolRepositorio;
