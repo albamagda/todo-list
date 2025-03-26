@@ -21,7 +21,7 @@ public class TareaService {
         return tareaRepositorio.findAll();
     }
     
-    
+
     public Optional<Tarea> findByNombre(String nombre) {
         return tareaRepositorio.findByNombre(nombre);
     }
